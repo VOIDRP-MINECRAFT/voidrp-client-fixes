@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "ru.voidrp.clientfixes.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "voidrp_client_fixes.refmap.json",
+  "mixins": [],
+  "client": [
+    "TipsyChatCrashGuardMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

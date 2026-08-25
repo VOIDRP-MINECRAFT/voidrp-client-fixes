@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="${mod_issue_tracker_url}"
+
+[[mixins]]
+config="voidrp_client_fixes.mixins.json"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+displayURL="${mod_display_url}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+# IGNORE_ALL = client never checks the server for this mod, so joining a server that
+# does not have it installed will NOT cause a mod-list mismatch / kick.
+displayTest="IGNORE_ALL"
+
+# Client-only. The server does not need this mod; these deps are CLIENT-side so the
+# server never demands it.
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="${neo_version_range}"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="CLIENT"
+
+# Brewin' And Chewin' is the mod we patch. Optional so this mod loads fine even if it
+# is ever removed from the pack; the mixin simply won't apply.
+[[dependencies.${mod_id}]]
+modId="brewinandchewin"
+type="optional"
+versionRange="*"
+ordering="NONE"
+side="CLIENT"
