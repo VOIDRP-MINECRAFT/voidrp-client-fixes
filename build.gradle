@@ -27,6 +27,10 @@ dependencies {
     // brewinandchewin is targeted by string in the mixin (remap=false), so it is NOT needed
     // on the compile classpath. Kept commented for reference.
     // compileOnly files('../minecraft_server/mods/brewinandchewin-neoforge-4.5.01.21.1.jar')
+    // Jade IS needed on the compile classpath: JadeUnregisteredBlockGuardMixin injects into
+    // ClientProxy.requestBlockData, whose descriptor references snownee.jade.api.BlockAccessor,
+    // so the injector's parameter types must be the real ones. compileOnly — never shipped.
+    compileOnly files('libs/Jade-1.21.1-NeoForge-15.10.5.jar')
 }
 
 tasks.withType(ProcessResources).configureEach {

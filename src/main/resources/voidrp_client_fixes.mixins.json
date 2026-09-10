@@ -6,7 +6,8 @@
   "refmap": "voidrp_client_fixes.refmap.json",
   "mixins": [],
   "client": [
-    "TipsyChatCrashGuardMixin"
+    "TipsyChatCrashGuardMixin",
+    "JadeUnregisteredBlockGuardMixin"
   ],
   "injectors": {
     "defaultRequire": 0

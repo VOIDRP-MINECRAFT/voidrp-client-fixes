@@ -31,3 +31,7 @@ eula.txt
 
 # Generated resources
 src/generated/
+
+# Сторонние джарники для compileOnly (Jade) — в репозитории не нужны,
+# ставятся руками из пака лаунчера. См. build.gradle.
+libs/
