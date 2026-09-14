@@ -31,6 +31,8 @@ dependencies {
     // ClientProxy.requestBlockData, whose descriptor references snownee.jade.api.BlockAccessor,
     // so the injector's parameter types must be the real ones. compileOnly — never shipped.
     compileOnly files('libs/Jade-1.21.1-NeoForge-15.10.5.jar')
+    // Hardcore True Darkness: softened by mixins (HardcoreDarkness*Mixin), never shipped.
+    compileOnly files('libs/hardcore_true_darkness-6.1-1.21.1-neoforge.jar')
 }
 
 tasks.withType(ProcessResources).configureEach {
