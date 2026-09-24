@@ -1,4 +1,14 @@
-# VoidRP Client Fixes
+<p align="center"><img src=".github/assets/banner.jpg" alt="VoidRP Client Fixes" width="100%"></p>
+
+<div align="center">
+
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-brightgreen?logo=minecraft)
+![NeoForge](https://img.shields.io/badge/NeoForge-21.1.218-orange)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Side](https://img.shields.io/badge/side-client_only-blueviolet)
+[![Build](https://github.com/VOIDRP-MINECRAFT/voidrp-client-fixes/actions/workflows/build.yml/badge.svg)](https://github.com/VOIDRP-MINECRAFT/voidrp-client-fixes/actions/workflows/build.yml)
+
+</div>
 
 A **client-only** NeoForge 1.21.1 mod that houses crash guards and compatibility
 patches for buggy client-side behaviour in the VoidRP (FTB Evolution) modpack.
