@@ -49,7 +49,7 @@ jobs:
           ./gradlew build --stacktrace --no-daemon
 
       - name: Upload jar
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: voidrp-client-fixes
           path: build/libs/*.jar
