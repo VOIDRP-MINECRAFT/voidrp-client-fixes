@@ -1,0 +1,63 @@
+name: Build
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Gradle build (with Jade compile dep)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: temurin
+          cache: gradle
+
+      - name: Neutralize local dev proxy (CI only)
+        run: '[ -f gradle.properties ] && sed -i "/[Pp]roxy/d" gradle.properties || true'
+
+      # build.gradle compiles the Jade guard against libs/Jade-*.jar (compileOnly, never
+      # shipped), which is not committed. Fetch that exact file from Modrinth.
+      - name: Fetch Jade compile dep
+        run: |
+          jar=$(grep -oE "libs/Jade-[^']+\.jar" build.gradle | head -1)
+          name=$(basename "$jar")
+          url=$(curl -sSL -A 'voidrp-ci (github.com/VOIDRP-MINECRAFT)' \
+            'https://api.modrinth.com/v2/project/jade/version?loaders=%5B%22neoforge%22%5D&game_versions=%5B%221.21.1%22%5D' \
+            | jq -r --arg n "$name" '[.[].files[] | select(.filename == $n) | .url][0]')
+          test -n "$url" && test "$url" != "null" || { echo "Jade file $name not found on Modrinth"; exit 1; }
+          mkdir -p libs && curl -sSL -A 'voidrp-ci' -o "$jar" "$url"
+          ls -la libs
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew build --stacktrace --no-daemon
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v6
+        with:
+          name: voidrp-client-fixes
+          path: build/libs/*.jar
+          retention-days: 14
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          generate_release_notes: true
